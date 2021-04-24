@@ -1,5 +1,4 @@
 from django.db import models
-<<<<<<< HEAD
 import string
 import random
 
@@ -18,7 +17,3 @@ class Record(models.Model):
     feature_3 = models.CharField(max_length=50, default="")
     predicted_disease = models.CharField(max_length=50, default="")
     creation_time = models.DateTimeField(auto_now_add=True)
-=======
-
-# Create your models here.
->>>>>>> parent of f0aced3 (db changes)
