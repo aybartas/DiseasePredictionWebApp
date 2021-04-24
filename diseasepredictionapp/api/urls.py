@@ -1,10 +1,6 @@
 from django.urls import path
-from .views import DiseaseView, main
-
+from .views import main
 urlpatterns = [
-    path('a', main),
-
-    path('home', DiseaseView.as_view())
+    path('home', main)
 ]
-
 
