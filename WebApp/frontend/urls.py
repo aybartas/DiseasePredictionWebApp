@@ -5,4 +5,6 @@ urlpatterns = [
     path('', index),
     path('addFeature', index),
     path('adminHome', index),
+    path('prediction', index),
+
 ]

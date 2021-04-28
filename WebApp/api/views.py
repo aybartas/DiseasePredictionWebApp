@@ -14,15 +14,18 @@ class DiseaseView(generics.ListAPIView):
 
 
 class CreateDiseaseView(APIView):
+
     serializer_class = CreateDiseaseSerializer
 
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            disease_name = serializer.data.name
+            disease_name = serializer.data.get('name')
             queryset = Disease.objects.filter(name=disease_name)
             if queryset.exists():
-                print('disease already exists')
+                return Response(status=status.HTTP_400_BAD_REQUEST)
             else:
                 disease = Disease(name=disease_name)
-            return Response(DiseaseSerializer(disease).data, status=status.HTTP_200_OK)
+                disease.save()
+            return Response(DiseaseSerializer(disease).data, status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
