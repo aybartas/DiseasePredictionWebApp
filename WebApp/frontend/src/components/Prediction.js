@@ -16,8 +16,8 @@ export default class Prediction extends Component{
 
     state = {
         formData: {
-            disease_name: '',
-            gender:''
+            feature_1: '',
+            feature_2:''
         },
         submitted: false,
     }
@@ -34,9 +34,19 @@ export default class Prediction extends Component{
             setTimeout(() => this.setState({ submitted: false }), 3000);
         });
 
-        //alert(this.state.formData.disease_name);
+        const requestOptions = {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({
 
-        console.log(`Radio button valuesu : ${this.state.formData.gender}`);
+                feature_1: this.state.formData.feature_1,
+                feature_2: this.state.formData.feature_2
+            })
+        };
+
+        fetch('/api/addRecord',requestOptions)
+            .then((response) => response.json())
+            .then((data) => console.log(data));
 
     }
 
@@ -47,20 +57,21 @@ export default class Prediction extends Component{
 
                 ref="form"
                 onSubmit={this.handleSubmit}>
-                <h2>Simple form</h2>
+                <Typography variant="h5" gutterBottom>
+                     Prediction
+                </Typography>
                 <TextValidator
-                    label="Disease name"
+                    label="Feature 1"
                     onChange={this.handleChange}
-                    name="disease_name"
-                    value={formData.disease_name}
+                    name="feature_1"
+                    value={formData.feature_1}
                     validators={['required']}
                     errorMessages={['Fields can not be empty']}
                 />
 
-                <RadioGroup aria-label="gender" name="gender"  onChange={this.handleChange}>
-                    <FormControlLabel value="female" control={<Radio />} label="Female" />
-                    <FormControlLabel value="male" control={<Radio />} label="Male" />
-                    <FormControlLabel value="other" control={<Radio />} label="Other" />
+                <RadioGroup aria-label="feature_2" name="feature_2"  onChange={this.handleChange}>
+                    <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+                    <FormControlLabel value="no" control={<Radio />} label="No" />
 
               </RadioGroup>
 

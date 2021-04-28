@@ -9,6 +9,6 @@ class Disease(models.Model):
 class Record(models.Model):
     feature_1 = models.CharField(max_length=50, default="")
     feature_2 = models.CharField(max_length=50, default="")
-    feature_3 = models.CharField(max_length=50, default="")
-    predicted_disease = models.CharField(max_length=50, default="")
+    predicted_disease = ""
     creation_time = models.DateTimeField(auto_now_add=True)
+
