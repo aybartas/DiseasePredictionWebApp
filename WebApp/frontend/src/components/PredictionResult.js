@@ -20,10 +20,6 @@ const PredictionResult = ({show}) => {
 
     const classes = useStyle();
 
-    console.log(show);
-    console.log('sdffsd');
-    console.log({show})
-
     if (show) {
         return (<Grid container justify="center" spacing={1}>
             <Grid item md={6}>

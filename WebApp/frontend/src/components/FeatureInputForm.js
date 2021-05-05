@@ -34,8 +34,8 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 const options = [
-    {label: "Kadın", value: "Kadın"},
-    {label: "Erkek", value: "Erkek"}
+    {label: "Male", value: "Male"},
+    {label: "Female", value: "Female"}
 ]
 
 const FeatureInputForm = () => {
@@ -71,6 +71,7 @@ const FeatureInputForm = () => {
                                     fetch('/api/addRecord', requestOptions)
                                         .then((response) => response.json())
                                         .then((data) => {
+                                            console.log("RESPONSE");
                                             console.log(data);
                                         });
 

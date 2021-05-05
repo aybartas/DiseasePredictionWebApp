@@ -24,6 +24,9 @@
     <orderEntry type="library" name="react-bootstrap" level="application" />
     <orderEntry type="library" name="react-dom" level="application" />
   </component>
+  <component name="PyDocumentationSettings">
+    <option name="renderExternalDocumentation" value="true" />
+  </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
     <option name="TEMPLATE_FOLDERS">
