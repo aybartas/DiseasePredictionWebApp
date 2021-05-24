@@ -16,10 +16,11 @@ const useStyle = makeStyles((theme) => ({
     },
 }));
 
-const PredictionResult = ({show}) => {
+const PredictionResult = ({show,prediction}) => {
 
     const classes = useStyle();
-
+    console.log(show);
+    console.log(prediction);
     if (show) {
         return (<Grid container justify="center" spacing={1}>
             <Grid item md={6}>
@@ -37,20 +38,14 @@ const PredictionResult = ({show}) => {
                         <Typography variant="body2" component="p">
                             well meaning and kindly.
                             <br/>
-                            {'"a benevolent smile"'}
+                            {prediction}
                         </Typography>
                     </CardContent>
-                    <CardActions>
-                        <Button size="small">Learn More</Button>
-                    </CardActions>
-
                 </Card>
             </Grid>
         </Grid>);
     } else {
         return null;
     }
-
 }
-
 export default PredictionResult

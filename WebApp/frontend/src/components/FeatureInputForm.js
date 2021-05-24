@@ -23,66 +23,54 @@ const useStyle = makeStyles((theme) => ({
     button: {
         margin: theme.spacing(1)
     },
-
     title: {
         fontSize: 14,
     },
     pos: {
         marginBottom: 12,
     },
-
 }));
-
 const options = [
     {label: "Male", value: "Male"},
     {label: "Female", value: "Female"}
 ]
-
 const FeatureInputForm = () => {
-
     const classes = useStyle();
     const [predictionMade, setPredictionMade] = useState(false);
+    const [prediction, setPrediction] = useState("");
 
     return (
         <div>
             <Grid container justify="center" spacing={1}>
                 <Grid item md={6}>
                     <Card className={classes.padding}>
-                        <CardHeader title="PREDICTION INPUT FORM"/>
-
+                        <CardHeader title="DISEASE  PREDICTION "/>
                         <CardContent>
                             <Formik
                                 initialValues={{gender: "", city: ""}}
                                 onSubmit={(values, {setSubmitting}) => {
-
                                     setTimeout(() => {
                                         setSubmitting(false);
                                     }, 500);
-
                                     const requestOptions = {
                                         method: 'POST',
                                         headers: {'Content-Type': 'application/json'},
                                         body: JSON.stringify({
                                             feature_1: values.gender,
                                             feature_2: values.city
-                                        })
-                                    };
-
+                                        })};
                                     fetch('/api/addRecord', requestOptions)
                                         .then((response) => response.json())
                                         .then((data) => {
                                             console.log("RESPONSE");
-                                            console.log(data);
+                                            setPrediction(data);
+                                            console.log("response next");
                                         });
-
                                     setPredictionMade(true);
                                 }}
-
                                 validationSchema={Yup.object().shape({
-
                                     gender: Yup.string()
                                         .required(" This field is required"),
-
                                     city: Yup.string()
                                         .required("This field is required.")
                                 })}
@@ -97,15 +85,11 @@ const FeatureInputForm = () => {
                                         handleBlur,
                                         handleSubmit
                                     } = props;
-
                                     return (
                                         <form onSubmit={handleSubmit}>
-
                                             <Grid item container spacing={1} justify="center">
-
                                                 <Grid item xs={12} sm={6} md={12} style={{margin: 12}}>
                                                     <FormControl fullWidth variant="outlined">
-
                                                         <InputLabel id="demo-simple-select-outlined-label">
                                                             Gender
                                                         </InputLabel>
@@ -128,7 +112,6 @@ const FeatureInputForm = () => {
                                                         <div className="input-feedback">{errors.gender}</div>
                                                     )}
                                                 </Grid>
-
                                                 <Grid item xs={12} sm={6} md={12} style={{margin: 12}}>
 
                                                     <Field
@@ -143,9 +126,7 @@ const FeatureInputForm = () => {
                                                     {errors.password && touched.password && (
                                                         <div className="input-feedback">{errors.password}</div>
                                                     )}
-
                                                 </Grid>
-
                                                 <CardActions>
                                                     <Button
                                                         disabled={isSubmitting}
@@ -157,20 +138,15 @@ const FeatureInputForm = () => {
                                                     </Button>
                                                 </CardActions>
                                             </Grid>
-                                        </form>
-                                    );
+                                        </form>);
                                 }}
                             </Formik>
-
                         </CardContent>
                     </Card>
                 </Grid>
             </Grid>
-
-            <PredictionResult show={predictionMade}/>
-
+            <PredictionResult show={predictionMade} prediction={prediction} />
         </div>
-
     );
 };
 

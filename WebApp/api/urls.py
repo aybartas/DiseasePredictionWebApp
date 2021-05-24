@@ -6,3 +6,4 @@ urlpatterns = [
     path('addDisease', CreateDiseaseView.as_view()),
     path('addRecord', CreateRecordView.as_view())
 ]
+

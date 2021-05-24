@@ -6,7 +6,6 @@ from rest_framework.decorators import api_view
 import pathlib
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
-
 from .models import Disease, Record
 from .serializers import DiseaseSerializer, CreateDiseaseSerializer, CreateRecordSerializer, RecordSerializer
 from rest_framework.views import APIView
@@ -47,8 +46,6 @@ class CreateRecordView(APIView):
         if serializer.is_valid():
             record_feature_1 = serializer.data.get('feature_1')
             record_feature_2 = serializer.data.get('feature_2')
-            record_predicted_disease = ""
-            record_creation_time = ""
             record = Record(feature_1=record_feature_1, feature_2=record_feature_2)
             record.save()
 
@@ -76,7 +73,7 @@ class CreateRecordView(APIView):
             dm_X = scalar.fit_transform(encoded_input)
             print("dm_X")
             print(dm_X)
-
+            
             y_pred = ml_mdl.predict(dm_X)
             print("prediction: ")
             print(y_pred)
