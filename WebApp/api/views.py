@@ -48,12 +48,10 @@ class CreateRecordView(APIView):
             record_feature_2 = serializer.data.get('feature_2')
             record = Record(feature_1=record_feature_1, feature_2=record_feature_2)
             record.save()
-
             ml_model_path = str(pathlib.Path().absolute()) + "\sdsp_model.pkl"
             scalar_model_path = str(pathlib.Path().absolute()) + "\scaler.pkl"
             ml_mdl = joblib.load(ml_model_path)
             scalar_mdl = joblib.load(scalar_model_path)
-
             # try:
 
             prediction = ml_mdl.predict(scalar_mdl.transform([[2344, 0, 1]]))
