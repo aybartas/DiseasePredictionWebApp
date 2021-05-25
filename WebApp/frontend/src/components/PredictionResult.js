@@ -1,5 +1,16 @@
-import {Button, Card, CardActions, CardContent, Grid, makeStyles, Typography} from "@material-ui/core";
+import {
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    Grid,
+    makeStyles, Paper,
+    Table, TableBody, TableCell, TableContainer,
+    TableHead, TableRow,
+    Typography
+} from "@material-ui/core";
 import React, {Component} from "react";
+import * as PropTypes from "prop-types";
 
 const useStyle = makeStyles((theme) => ({
     padding: {
@@ -14,32 +25,66 @@ const useStyle = makeStyles((theme) => ({
     pos: {
         marginBottom: 12,
     },
+    table: {
+        minWidth: 300
+    }
+
 }));
 
-const PredictionResult = ({show,prediction}) => {
+function createData(disease, probability) {
+    return {disease, probability};
+}
+
+function createRows(prediction){
+
+    let prediction_array = prediction.substring(1, prediction.length-1).split(",");
+    console.log(prediction_array);
+
+    let rows = [];
+    let i = 1;
+    for( let disease of prediction_array){
+        console.log(disease);
+        rows.push(createData('Disease '+i, disease));
+        i++;
+    }
+    return rows;
+}
+
+const PredictionResult = ({show, prediction}) => {
 
     const classes = useStyle();
-    console.log(show);
-    console.log(prediction);
+
     if (show) {
         return (<Grid container justify="center" spacing={1}>
-            <Grid item md={6}>
+            <Grid item xs={{ span: 6, offset: 3 }} >
                 <Card className={classes.padding}>
                     <CardContent>
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
-                            Word of the Day
+                            I would suggest you to consider diseases below based on their probabilities attached
                         </Typography>
-                        <Typography variant="h5" component="h2">
-                            rttyrtyrtyrtrtytr rtyy rt
-                        </Typography>
-                        <Typography className={classes.pos} color="textSecondary">
-                            adjective
-                        </Typography>
-                        <Typography variant="body2" component="p">
-                            well meaning and kindly.
-                            <br/>
-                            {prediction}
-                        </Typography>
+
+                        <TableContainer component={Paper}>
+                            <Table className={classes.table} size="small" aria-label="a dense table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Disease</TableCell>
+                                        <TableCell>Probability</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+
+                                    {createRows(prediction).map((row) => (
+                                        <TableRow key={new Date().getDate()}>
+                                            <TableCell component="th" scope="row">
+                                                {row.disease}
+                                            </TableCell>
+                                            <TableCell align="right">{row.probability}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+
                     </CardContent>
                 </Card>
             </Grid>

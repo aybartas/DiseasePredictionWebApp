@@ -27,4 +27,7 @@ class RecordSerializer(serializers.ModelSerializer):
 class CreateRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = Record
-        fields = ('feature_1', 'feature_2')
+        fields = (
+        'Feature_37_Yes', 'Feature_29_No_Difference', 'Feature_6_Yes', 'Feature_29_Mornings', 'Feature_28_Every_Day',
+        'Feature_31_Yes', 'Feature_5', 'Feature_50_Yes')
+
